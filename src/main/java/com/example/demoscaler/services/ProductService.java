@@ -1,21 +1,24 @@
 package com.example.demoscaler.services;
 
 import com.example.demoscaler.dtos.ProductDto;
+import com.example.demoscaler.models.Product;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 public interface ProductService {
 
-    String getAllProducts();
+    List<Product> getAllProducts();
 
 
-    String getSingleProduct( Long id);
+    Product getSingleProduct( Long id);
 
 
-    String addNewProduct( ProductDto productDto);
+    Product addNewProduct( ProductDto productDto);
 
 
-    String updateProduct(Long id);
+    Product updateProduct(Long ProductId, Product product);
 
 
-    String deleteProduct(Long id);
+    String deleteProduct(Long ProductId);
 }

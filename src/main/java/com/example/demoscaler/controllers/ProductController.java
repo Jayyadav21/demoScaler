@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/products")
-public class ProductController {
+public class    ProductController {
 
     private ProductService productService;
 
@@ -16,11 +16,13 @@ public class ProductController {
 
     @GetMapping()
     public String getAllProducts() {
+
         return "Getting All Products";
     }
 
     @GetMapping("/{id}")
     public String getSingleProduct(@PathVariable("id") Long id) {
+
         return "Getting Single Product with id: " + id;
     }
     @PostMapping("")
@@ -34,6 +36,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public String deleteProduct(@PathVariable("id") Long id) {
+
         return "Deleting Product with id: " + id;
     }
 }
