@@ -1,7 +1,9 @@
 package com.example.demoscaler.controllers;
 
 import com.example.demoscaler.dtos.ProductDto;
+import com.example.demoscaler.models.Product;
 import com.example.demoscaler.services.ProductService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,10 +22,11 @@ public class    ProductController {
         return "Getting All Products";
     }
 
-    @GetMapping("/{id}")
-    public String getSingleProduct(@PathVariable("id") Long id) {
+    @GetMapping("/{productId}")
+    public ResponseEntity<Product> getSingleProduct(@PathVariable("productId") Long productId) {
+        ResponseEntity<Product> response=new ResponseEntity<>(productService.getSingleProduct(productId),org.springframework.http.HttpStatus.OK);
 
-        return "Getting Single Product with id: " + id;
+        return response;
     }
     @PostMapping("")
     public String addNewProduct(@RequestBody ProductDto productDto) {

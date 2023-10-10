@@ -11,7 +11,7 @@ public interface ProductService {
     List<Product> getAllProducts();
 
 
-    Product getSingleProduct( Long id);
+    Product getSingleProduct( Long productId);
 
 
     Product addNewProduct( ProductDto productDto);
