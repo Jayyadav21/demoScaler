@@ -21,7 +21,23 @@ public class FakeStoreProductServiceImpl implements ProductService{
     }
     @Override
     public List<Product> getAllProducts() {
+        RestTemplate restTemplate=restTemplateBuilder.build();
+        ResponseEntity<ProductDto[]> response=restTemplate.getForEntity("https://fakestoreapi.com/products", ProductDto[].class);
+
         List<Product> answer=new ArrayList<>();
+
+        for (ProductDto productDto:response.getBody()) {
+            Product product=new Product();
+            product.setId(productDto.getId());
+            product.setTitle(productDto.getTitle());
+            product.setPrice(productDto.getPrice());
+            product.setDescription(productDto.getDescription());
+            Category category=new Category();
+            category.setName(productDto.getCategory());
+            product.setImageUrl(productDto.getImage());
+            answer.add(product);
+
+        }
         return answer;
     }
 
@@ -46,8 +62,22 @@ public class FakeStoreProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product addNewProduct(ProductDto productDto) {
-        return null;
+    public Product addNewProduct(ProductDto product) {
+        RestTemplate restTemplate=restTemplateBuilder.build();
+        ResponseEntity<ProductDto> response=restTemplate.postForEntity("https://fakestoreapi.com/products",product,ProductDto.class);
+
+        ProductDto productDto=response.getBody();
+        Product product1=new Product();
+        product1.setId(productDto.getId());
+        product1.setTitle(productDto.getTitle());
+        product1.setPrice(productDto.getPrice());
+        product1.setDescription(productDto.getDescription());
+        Category category=new Category();
+        category.setName(productDto.getCategory());
+        product1.setImageUrl(productDto.getImage());
+        return product1;
+
+
     }
 
     @Override

@@ -1,10 +1,14 @@
 package com.example.demoscaler.services;
 
+import com.example.demoscaler.models.Category;
+import com.example.demoscaler.models.Product;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-public interface CategoryService {
-    String getAllCategories();
+import java.util.List;
 
-    String getProductInCategory(Long id);
+public interface CategoryService {
+    List<String> getAllCategories();
+
+    List<Product> getProductInCategory(Long catergoryId);
 }
