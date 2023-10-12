@@ -2,6 +2,7 @@ package com.example.demoscaler.controllers;
 
 import com.example.demoscaler.dtos.CategoryDto;
 import com.example.demoscaler.models.Category;
+import com.example.demoscaler.models.Product;
 import com.example.demoscaler.services.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +32,10 @@ public class CategoryController {
         return response;
     }
 
-    @GetMapping("/{id}")
-    public String getProductInCategory(@PathVariable("id") Long id) {
-        return "Getting Product In Category";
+    @GetMapping("/{categoryName}")
+    public ResponseEntity<List<Product>> getProductInCategory(@PathVariable("categoryName") String categoryName) {
+           ResponseEntity<List<Product>> response=new ResponseEntity<>(categoryService.getProductInCategory(categoryName),HttpStatus.OK);
+
+        return response;
     }
 }

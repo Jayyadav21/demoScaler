@@ -10,5 +10,5 @@ import java.util.List;
 public interface CategoryService {
     List<String> getAllCategories();
 
-    List<Product> getProductInCategory(Long catergoryId);
+    List<Product> getProductInCategory(String catergoryName);
 }

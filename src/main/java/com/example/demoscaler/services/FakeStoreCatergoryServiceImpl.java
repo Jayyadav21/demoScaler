@@ -1,6 +1,7 @@
 package com.example.demoscaler.services;
 
 import com.example.demoscaler.dtos.CategoryDto;
+import com.example.demoscaler.dtos.FakeStoreProductDto;
 import com.example.demoscaler.dtos.ProductDto;
 import com.example.demoscaler.models.Category;
 import com.example.demoscaler.models.Product;
@@ -35,7 +36,27 @@ public class FakeStoreCatergoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public List<Product> getProductInCategory(Long catergoryId) {
-        return null;
+    public List<Product> getProductInCategory(String catergoryName) {
+        RestTemplate restTemplate=restTemplateBuilder.build();
+        ResponseEntity<FakeStoreProductDto[]> response=restTemplate.getForEntity("https://fakestoreapi.com/products/category/{catergoryName}",FakeStoreProductDto[].class,catergoryName );
+
+        ArrayList<Product> answer=new ArrayList<>();
+        for (FakeStoreProductDto fakeStoreProductDto:response.getBody()) {
+            answer.add(convertFakeStoreProductDtoToProduct(fakeStoreProductDto));
+        }
+
+
+        return answer;
+    }
+    public Product convertFakeStoreProductDtoToProduct(FakeStoreProductDto fakeStoreProductDto){
+        Product product=new Product();
+        product.setId(fakeStoreProductDto.getId());
+        product.setTitle(fakeStoreProductDto.getTitle());
+        product.setPrice(fakeStoreProductDto.getPrice());
+        product.setDescription(fakeStoreProductDto.getDescription());
+        Category category=new Category();
+        category.setName(fakeStoreProductDto.getCategory());
+        product.setImageUrl(fakeStoreProductDto.getImage());
+        return product;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.demoscaler.controllers;
 
 import com.example.demoscaler.dtos.ProductDto;
+import com.example.demoscaler.models.Category;
 import com.example.demoscaler.models.Product;
 import com.example.demoscaler.services.ProductService;
 import org.springframework.http.HttpStatus;
@@ -39,14 +40,25 @@ public class    ProductController {
 
         return response;
     }
-    @PutMapping("/{id}")
-    public String updateProduct(@RequestBody ProductDto productDto,@PathVariable("id") Long id) {
-        return "Updating Product with id: " + id +"/r/n"+productDto ;
+    @PatchMapping("/{productId}")
+    public Product updateProduct(@RequestBody ProductDto productDto,@PathVariable("productId") Long productId) {
+        Product product=new Product();
+        product.setId(productDto.getId());
+        product.setPrice(productDto.getPrice());
+        product.setCategory(new Category());
+        product.getCategory().setName(productDto.getCategory());
+        product.setTitle(productDto.getTitle());
+        product.setPrice(productDto.getPrice());
+        product.setDescription(productDto.getDescription());
+
+
+        return productService.updateProduct(productId,product);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteProduct(@PathVariable("id") Long id) {
+    public Product deleteProduct(@PathVariable("id") Long id) {
+        return productService.deleteProduct(id);
 
-        return "Deleting Product with id: " + id;
+
     }
 }
